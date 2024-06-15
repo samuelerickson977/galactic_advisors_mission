@@ -1,0 +1,136 @@
+/*************/
+/* computers */
+/*************/
+
+computer_name: 
+  description: 
+    - Name of the computer
+  type: 
+    - varchar(255), PRIMARY KEY
+
+user_name: 
+  description: 
+    - User name of computer user
+  type: 
+    - varchar(255)
+	
+computer_type: 
+  description: 
+    - Type of computer user, each type corresponds to different privalges that computer is allowed to have
+  type: 
+    - varchar(255), NOT NULL
+	
+operating_system: 
+  description: 
+    - String identifying the operating system type
+  type: 
+    - varchar(255)
+	
+os_version: 
+  description:
+    - String identifying the build number of the operating system
+  type: 
+    - varchar(255)
+	
+os_architecture: 
+  description: 
+    - Operating System Architechture corresponding to the processer type
+  type: 
+    - varchar(255)
+
+serial_number: 
+  description: 
+    - Serial Number of the computer
+  type: 
+    - varchar(255), NOT NULL
+	
+last_full_scan_date: 
+  description: 
+    - Last date a full scan by CMS was run on the computer
+  type: 
+    - varchar(255)
+	
+/************************************************************************************************************************/
+/************************************************************************************************************************/
+
+
+/**********************/
+/* installed_programs */
+/**********************/
+
+program_record_id: 
+  description: 
+    - Identifier for new records that auto-increments on insert of new records. New records are inserted whenver a full scan is run
+  type: 
+    - integer, PRIMARY KEY, auto_increment
+
+computer_name: 
+  description: 
+    -  Name of the computer. A computer can have multiple installed program records
+  type: 
+    - varchar(255), NOT NULL, Foreign Key which references computers.computer_name
+	
+program_name: 
+  description: 
+    - Name of the installed program found on the computer
+  type: 
+    - varchar(255), NOT NULL
+
+program_version: 
+  description: 
+    - Version number of the installed program found on the computer
+  type: 
+    - varchar(255)
+	
+
+/************************************************************************************************************************/
+/************************************************************************************************************************/
+
+
+/*****************/
+/* login_records */
+/*****************/
+
+login_record_id: 
+  description: 
+    - Identifier for new records that auto-increments on insert of new records
+  type: 
+    - integer, PRIMARY KEY, auto_increment
+
+computer_name: 
+  description: 
+    -  Name of the computer. A computer can have multiple login records
+  type: 
+    - varchar(255), NOT NULL, Foreign Key which references computers.computer_name
+	
+login_ip: 
+  description: 
+    - IP address associated with the computer login
+  type: 
+    - varchar(255), NOT NULL
+
+login_timestamp: 
+  description: 
+    - Timestamp recording the last time any user of this computer logged in
+  type: 
+    - TEXT, NOT NULL
+	
+/************************************************************************************************************************/
+/************************************************************************************************************************/
+
+
+/****************/
+/* ip_whitelist */
+/****************/
+
+whitelist_record_id: 
+  description: 
+    - Identifier for new records that auto-increments on insert of new records. Manually specified by the IT team
+  type: 
+    - integer, PRIMARY KEY, auto_increment
+
+login_ip: 
+  description: 
+    - IP addresses of admin computers that are whitelisted for login. IPs not in this list are flagged by the CMS
+  type: 
+    - varchar(255), NOT NULL
